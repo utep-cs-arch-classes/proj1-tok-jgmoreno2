@@ -1,11 +1,13 @@
 #include <stdio.h>
 
-#define MAX 100
-
 void main(){
-  printf("Input: ");
-  char input[MAX];
-  fgets(input, MAX, stdin);
-  printf("\nOutput: %s\n", input);
+  printf("Input (enter '@' to exit): ");
+  char input;
+  while(input != '@'){
+    input = getchar();
+    printf("\nRecent entry: ");
+    putchar(input);
+    printf("\t");
+  }
   return;
 }
