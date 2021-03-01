@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int space_char(char c){
   if(c == ' ' || c == '\t' || c == '\n') return 1;
@@ -22,7 +23,7 @@ char *word_end(char *str){
     str++;
   }
   return str;
-}
+} 
 
 int count_words(char *str){
   int count = 0;
@@ -34,6 +35,14 @@ int count_words(char *str){
   return count;
 }
 
+char *copy_str(char *src, short len){
+  char* ptr = (char *)malloc(sizeof(char) * (len + 1));
+  for(int i = 0; i < len && src[i] != '\0'; i++){
+    ptr[i] = src[i];
+  }
+  return ptr;
+}
+    
 void main(){
   char arr[12];
   arr[0] = 'h';
@@ -49,5 +58,6 @@ void main(){
   arr[10] = 'd';
   arr[11] = '\0';
   int count = count_words(&arr[0]);
-  printf("%d", count);
+  char *ptr = copy_str(&arr[0], 14);
+  printf("\n%s\n", ptr);
 }
