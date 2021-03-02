@@ -40,24 +40,38 @@ char *copy_str(char *src, short len){
   for(int i = 0; i < len && src[i] != '\0'; i++){
     ptr[i] = src[i];
   }
+  ptr[len] = '\0';
   return ptr;
 }
-    
+
+void print_tokens(char **toks){
+  while(**toks != '\0'){
+    char *tmp = &**toks;
+    while(*tmp != '\0'){
+      printf("%c", *tmp);
+      tmp += 1;
+    }
+    printf("\n");
+    toks += 1;
+  }
+}
+
+void free_tokens(char **toks){
+  while(**toks != '\0'){
+    free(*toks);
+    toks += 1;
+  }
+  free(*toks);
+  free(toks);
+}
+
 void main(){
-  char arr[12];
-  arr[0] = 'h';
-  arr[1] = 'e';
-  arr[2] = 'l';
-  arr[3] = 'l';
-  arr[4] = 'o';
-  arr[5] = ' ';
-  arr[6] = 'w';
-  arr[7] = 'o';
-  arr[8] = 'r';
-  arr[9] = 'l';
-  arr[10] = 'd';
-  arr[11] = '\0';
-  int count = count_words(&arr[0]);
-  char *ptr = copy_str(&arr[0], 14);
-  printf("\n%s\n", ptr);
+  char *toks[3];
+  char arr[6] = "hello\0";
+  char arr2[6] = "world\0";
+  char arr3[2] = "\0";
+  toks[0] = &arr[0];
+  toks[1] = &arr2[0];
+  toks[2] = &arr3[0];
+  print_tokens(toks);
 }
