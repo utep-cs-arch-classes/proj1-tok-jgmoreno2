@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 int space_char(char c){
-  if(c == ' ' || c == '\t' || c == '\n') return 1;
+  if (c == ' ' || c == '\t' || c == '\n') return 1;
   return 0;
 }
 
@@ -21,9 +22,9 @@ char *word_start(char *str){
 char *word_end(char *str){
   while(non_space_char(*str) == 1 && *str != '\0'){
     str++;
-  }
+  } 
   return str;
-} 
+}
 
 int count_words(char *str){
   int count = 0;
@@ -36,7 +37,7 @@ int count_words(char *str){
 }
 
 char *copy_str(char *src, short len){
-  char* ptr = (char *)malloc(sizeof(char) * (len + 1));
+  char *ptr = (char *)malloc(sizeof(char) * (len + 1));
   for(int i = 0; i < len && src[i] != '\0'; i++){
     ptr[i] = src[i];
   }
@@ -65,13 +66,14 @@ void free_tokens(char **toks){
   free(toks);
 }
 
-void main(){
-  char *toks[3];
-  char arr[6] = "hello\0";
-  char arr2[6] = "world\0";
-  char arr3[2] = "\0";
-  toks[0] = &arr[0];
-  toks[1] = &arr2[0];
-  toks[2] = &arr3[0];
-  print_tokens(toks);
+char **tokenize(char *s){
+  int words = count_words(s);
+  char **toks = (char **)malloc(sizeof(char **) * words);
+  for(int i = 0; i < words; i++){
+    char *start = word_start(s);
+    char *end = word_end(s);
+    int length = (int)(end - start) + 1;
+    toks[i] = copy_str(start, length);
+  }
+  return toks;
 }
