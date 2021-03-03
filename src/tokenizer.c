@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include "tokenizer.h"
 
 int space_char(char c){
   if (c == ' ' || c == '\t' || c == '\n') return 1;
@@ -46,14 +47,15 @@ char *copy_str(char *src, short len){
 }
 
 void print_tokens(char **toks){
-  while(**toks != '\0'){
-    char *tmp = &**toks;
-    while(*tmp != '\0'){
-      printf("%c", *tmp);
-      tmp += 1;
+  int i = 0;
+  while(toks[i][0] != '\0'){
+    int j = 0;
+    while(toks[i][j] != '\0'){
+      printf("%c", toks[i][j]);
+      j++;
     }
     printf("\n");
-    toks += 1;
+    i++;
   }
 }
 
@@ -68,12 +70,17 @@ void free_tokens(char **toks){
 
 char **tokenize(char *s){
   int words = count_words(s);
-  char **toks = (char **)malloc(sizeof(char **) * words);
+  char **toks = (char **)malloc(sizeof(char **) * (words + 1));
+  int last = 0;
   for(int i = 0; i < words; i++){
     char *start = word_start(s);
     char *end = word_end(s);
     int length = (int)(end - start) + 1;
     toks[i] = copy_str(start, length);
+    s += length;
+    last = i + 1;
   }
+  char term[1] = "\0";
+  toks[last] = &term[0];
   return toks;
 }

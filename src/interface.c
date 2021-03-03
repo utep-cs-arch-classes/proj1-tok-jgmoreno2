@@ -19,4 +19,6 @@ void main(){
   }
   printf("Tokenizing \"%s\"...\n", arr);
   char **toks = tokenize(&arr[0]);
+  print_tokens(toks);
+  return;
 }
