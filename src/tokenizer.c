@@ -23,7 +23,7 @@ char *word_start(char *str){
 char *word_end(char *str){
   while(non_space_char(*str) == 1 && *str != '\0'){
     str++;
-  } 
+  }
   return str;
 }
 
@@ -57,15 +57,22 @@ void print_tokens(char **toks){
     printf("\n");
     i++;
   }
+  printf("finished printing");
 }
 
 void free_tokens(char **toks){
-  while(**toks != '\0'){
-    free(*toks);
-    toks += 1;
+  int i = 0;
+  while(1 == 1){
+    if(toks[i][0] != '\0'){
+      free(toks[i]);
+      i++;
+    }
+    else{
+      free(toks);
+      break;
+    }
   }
-  free(*toks);
-  free(toks);
+  printf("finished freeing");
 }
 
 char **tokenize(char *s){
@@ -80,7 +87,8 @@ char **tokenize(char *s){
     s += length;
     last = i + 1;
   }
-  char term[1] = "\0";
-  toks[last] = &term[0];
+  char *term = (char *)malloc(sizeof(char *));
+  *term = '\0';
+  toks[last] = term;
   return toks;
 }
