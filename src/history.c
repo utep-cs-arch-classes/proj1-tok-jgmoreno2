@@ -8,17 +8,22 @@ List *init_history(){
 
 void add_history(List *list, char *str){
   Item *item = (Item *)malloc(sizeof(Item));
-  
   item->str = str;
   item->next = NULL;
   Item *ptr = list->root;
-  int currId = 0;
-  while(ptr != NULL && ptr->next != NULL){
-    currId++;
-    ptr = ptr->next;
+  if(ptr == NULL){
+    item->id = 0;
+    list->root = item;
   }
-  item->id = currId;
-  ptr->next = item;
+  else{
+    int currId = 0;
+    while(ptr != NULL && ptr->next != NULL){
+      currId++;
+      ptr = ptr->next;
+    }
+    item->id = currId;
+    ptr->next = item;
+  }
 }
 
 char *get_history(List *list, int id){
@@ -31,9 +36,12 @@ char *get_history(List *list, int id){
 
 void print_history(List *list){
   Item *ptr = list->root;
-  while(ptr != NULL){
-    char *str = ptr->str;
-    printf("%d: %s\n", ptr->id, *str);
+  do{
+    printf("%d: %s\n", ptr->id, ptr->str);
     ptr = ptr->next;
-  }
+  }while(ptr != NULL && ptr->next != NULL);
+}
+
+void free_history(List *list){
+  
 }

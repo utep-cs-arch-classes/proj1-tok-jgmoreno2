@@ -4,6 +4,7 @@
 
 void main(){
   printf("> ");
+  List *list = init_history();
   char arr[100];
   char input;
   int i = 0;
@@ -18,13 +19,11 @@ void main(){
       break;
     }
   }
-  List *list = init_history();
-  printf("adding history");
   add_history(list, &arr[0]);
   printf("Tokenizing \"%s\"...\n", arr);
   char **toks = tokenize(&arr[0]);
   print_tokens(toks);
-  printf("freeing tokens");
   free_tokens(toks);
+  print_history(list);
   return;
 }

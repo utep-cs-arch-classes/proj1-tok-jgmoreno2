@@ -57,7 +57,6 @@ void print_tokens(char **toks){
     printf("\n");
     i++;
   }
-  printf("finished printing");
 }
 
 void free_tokens(char **toks){
@@ -72,7 +71,6 @@ void free_tokens(char **toks){
       break;
     }
   }
-  printf("finished freeing");
 }
 
 char **tokenize(char *s){
